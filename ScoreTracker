@@ -1,0 +1,76 @@
+
+
+students = {}  # dictionary to store student names and their scores
+
+def add_student():
+    name = input("Enter student name: ")
+    scores = []
+
+    num = int(input("How many scores to enter? "))
+    for i in range(num):
+        score = float(input(f"Enter score {i+1}: "))
+        scores.append(score)
+
+    students[name] = scores
+    print(f"{name} added successfully!\n")
+
+
+def view_students():
+    if not students:
+        print("No students found.\n")
+        return
+
+    for name, scores in students.items():
+        print(f"{name}: {scores}")
+    print()
+
+
+def search_student():
+    name = input("Enter student name to search: ")
+
+    if name in students:
+        scores = students[name]
+        avg = sum(scores) / len(scores)
+        print(f"{name}'s scores: {scores}")
+        print(f"Average: {avg:.2f}\n")
+    else:
+        print("Student not found.\n")
+
+
+def class_average():
+    all_scores = []
+
+    for scores in students.values():
+        all_scores.extend(scores)
+
+    if all_scores:
+        avg = sum(all_scores) / len(all_scores)
+        print(f"Class Average: {avg:.2f}\n")
+    else:
+        print("No scores available.\n")
+
+
+def menu():
+    while True:
+        print("=== Student Score Tracker ===")
+        print("1. Add Student")
+        print("2. View All Students")
+        print("3. Search Student")
+        print("4. Class Average")
+        print("5. Exit")
+
+        choice = input("Choose an option: ")
+
+        if choice == "1":
+            add_student()
+        elif choice == "2":
+            view_students()
+        elif choice == "3":
+            search_student()
+        elif choice == "4":
+            class_average()
+        elif choice == "5":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice, try again.\n")
